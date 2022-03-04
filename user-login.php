@@ -1,5 +1,6 @@
 <?php
 include './loginCheck.php';
+include './google_login_config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,6 +119,11 @@ include './loginCheck.php';
                       >
                         Create Account
                       </a>
+                    </p>
+                  </div>
+                  <div class="mt-37 text-center">
+                    <p class="text-muted mb-0 fs-14">
+                      <?php echo "<a href='".$client->createAuthUrl()."'>Google Login</a>"; ?>
                     </p>
                   </div>
                 </div>

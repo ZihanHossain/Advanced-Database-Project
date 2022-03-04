@@ -7,7 +7,7 @@ include './register-user.php';
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Protend - Project Management Admin Dashboard HTML Template</title>
+    <title>Registration</title>
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png" />
     <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -44,7 +44,7 @@ include './register-user.php';
                 </a>
 
                 <div class="action-reg">
-                  <h4 class="fs-30">Login</h4>
+                  <h4 class="fs-30">Registration</h4>
                   <a href="new-account.html">Create an account</a>
                 </div>
               </div>
@@ -52,6 +52,33 @@ include './register-user.php';
               <div class="box-body">
                 <div class="auth-content my-auto">
                   <form class="mt-5 pt-2" method="POST">
+                    <div class="mb-24>
+                        <label class="form-label mb-14">National Id Number</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="n_id"
+                          name="n_id"
+                          placeholder="Your text"
+                          value=<?php if(isset($n_id)){echo "'$n_id'";} ?>
+                          <?php if($nid_check){echo 'disabled';} ?>
+                        />
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p style="color: red"><?php echo $n_id_err; ?></p>
+                      </div>
+                    </div>
+                    <button
+                        class="btn bg-primary color-white w-20 waves-effect waves-light fs-18 font-w500"
+                        type="submit"
+                        name="check"
+                        <?php if($nid_check){echo 'disabled';} ?>
+                      >
+                        Check
+                    </button>
+                  </form>
+                  <form class="mt-5 pt-2" method="POST" <?php if($nid_check){echo "style='display:block'";} else{echo "style='display:none'";} ?>>
                     <div class="mb-24">
                       <label class="form-label mb-14">User Name</label>
                       <input
