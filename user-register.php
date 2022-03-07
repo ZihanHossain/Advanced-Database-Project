@@ -1,5 +1,6 @@
 <?php
-include './register-user.php';
+require_once './nid_check.php';
+// require_once './register-user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +40,7 @@ include './register-user.php';
           <div class="col-12">
             <div class="box">
               <div class="box-header d-flex justify-content-between">
-                <a href="index.html">
+                <a href="user-register.php">
                   <img src="./images/logo.png" alt="" />
                 </a>
 
@@ -52,7 +53,7 @@ include './register-user.php';
               <div class="box-body">
                 <div class="auth-content my-auto">
                   <form class="mt-5 pt-2" method="POST">
-                    <div class="mb-24>
+                    <div class="">
                         <label class="form-label mb-14">National Id Number</label>
                         <input
                           type="number"
@@ -78,7 +79,61 @@ include './register-user.php';
                         Check
                     </button>
                   </form>
-                  <form class="mt-5 pt-2" method="POST" <?php if($nid_check){echo "style='display:block'";} else{echo "style='display:none'";} ?>>
+                  <div <?php if($nid_check){echo "style='display:block'";} else{echo "style='display:none'";} ?>>
+                    <div class="row mb-24">
+                      <div class="col">
+                            <label class="form-label mb-14">Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="name"
+                              name="name"
+                              placeholder="Name"
+                              value=<?php if(isset($name)){echo "'$name'";} ?>
+                              disabled
+                            />
+                      </div>
+                      <div class="col" style="display: none;">
+                            <label class="form-label mb-14">Citizen Id</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="c_id"
+                              name="c_id"
+                              placeholder="Citizen Id"
+                              value=<?php if(isset($c_id)){echo "'$c_id'";} ?>
+                              disabled
+                            />
+                      </div>
+                      <div class="col">
+                            <label class="form-label mb-14">Job</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="job"
+                              name="job"
+                              placeholder="Job"
+                              value=<?php if(isset($job)){echo "'$job'";} ?>
+                              disabled
+                            />
+                      </div>
+                    </div>
+                    <div class="row mb-24">
+                      <div class="col-6">
+                        <label class="form-label mb-14">Father</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                id="f_name"
+                                name="f_name"
+                                placeholder="Father's Name"
+                                value=<?php if(isset($f_name)){echo "'$f_name'";} ?>
+                                disabled
+                              />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5 pt-2"<?php if($nid_check){echo "style='display:block'";} else{echo "style='display:none'";} ?>>
                     <div class="mb-24">
                       <label class="form-label mb-14">User Name</label>
                       <input
@@ -100,6 +155,7 @@ include './register-user.php';
                         <input
                           type="password"
                           name="password"
+                          id="password"
                           class="form-control"
                           placeholder="Enter password"
                           aria-label="Password"
@@ -116,7 +172,8 @@ include './register-user.php';
                     </div>
                     <div class="row mb-29">
                       <div class="col">
-                        <p style="color: red"><?php echo $err; ?></p>
+                        <p id='err' style="color: red"></p>
+                        <!-- <?php echo $err; ?> -->
                       </div>
                     </div>
                     <div class="mb-3">
@@ -124,11 +181,12 @@ include './register-user.php';
                         class="btn bg-primary color-white w-100 waves-effect waves-light fs-18 font-w500"
                         type="submit"
                         name="register"
+                        onclick="register()"
                       >
                         Create Account
                       </button>
                     </div>
-                  </form>
+                  </div>
 
                   <div class="mt-37 text-center">
                     <p class="text-muted mb-0 fs-14">
@@ -170,6 +228,20 @@ include './register-user.php';
 
     <!-- APP JS -->
 
-    <script></script>
+    <script>
+      function register(){
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        if(password.length < 1 || username.length < 1)
+        {
+          document.getElementById("err").innerHTML = "Please enter username and password";
+        }
+        else
+        {
+          document.getElementById("err").innerHTML = "";
+        }
+      }
+    </script>
   </body>
 </html>
