@@ -232,6 +232,8 @@ require_once './nid_check.php';
       function register(){
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
+        let c_id = document.getElementById('c_id').value;
+        let n_id = document.getElementById('n_id').value;
 
         if(password.length < 1 || username.length < 1)
         {
@@ -240,6 +242,16 @@ require_once './nid_check.php';
         else
         {
           document.getElementById("err").innerHTML = "";
+          const xhttp = new XMLHttpRequest();
+          xhttp.open("POST", "register-user.php");
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("username="+username+"&password="+password+"&c_id="+c_id+"&n_id="+n_id);
+          xhttp.onload = function() {
+            if(this.responseText === 'success')
+            {
+              location.href = 'user-login.php';
+            }
+          }
         }
       }
     </script>

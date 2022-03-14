@@ -91,6 +91,7 @@ include './google_login_config.php';
                     <div class="row mb-29">
                       <div class="col">
                         <p style="color: red"><?php echo $err; ?></p>
+                        <p style="color: red"><?php if(isset($_GET['err'])) echo $_GET['err']; ?></p>
                       </div>
                     </div>
                     <div class="mb-3">
@@ -122,6 +123,7 @@ include './google_login_config.php';
                     </p>
                   </div>
                   <div class="mt-37 text-center">
+                    <label type=''></label>
                     <p class="text-muted mb-0 fs-14">
                       <?php echo "<a href='".$client->createAuthUrl()."'>Google Login</a>"; ?>
                     </p>
