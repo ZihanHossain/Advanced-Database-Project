@@ -1,14 +1,14 @@
 <?php
-include './loginCheck.php';
-include './google_login_config.php';
+require_once('./get_profile_info.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Protend - Project Management Admin Dashboard HTML Template</title>
+    <title>Profile</title>
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png" />
     <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -40,19 +40,12 @@ include './google_login_config.php';
           <div class="col-12">
             <div class="box">
               <div class="box-header d-flex justify-content-between">
-                <a href="index.html">
-                  <img src="./images/logo.png" alt="" />
-                </a>
-
-                <div class="action-reg">
-                  <h4 class="fs-30">Login</h4>
-                  <a href="new-account.html">Sign in to your account</a>
-                </div>
+                  <h4 class="fs-30">Change profile info</h4>
               </div>
               <div class="line"></div>
               <div class="box-body">
                 <div class="auth-content my-auto">
-                  <form class="mt-5 pt-2" method="POST">
+                  <div class="mt-5 pt-2">
                     <div class="mb-24">
                       <label class="form-label mb-14">User Name</label>
                       <input
@@ -61,6 +54,7 @@ include './google_login_config.php';
                         id="username"
                         name="username"
                         placeholder="Your text"
+                        value=<?php echo $username; ?>
                       />
                     </div>
                     <div class="mb-16">
@@ -73,11 +67,13 @@ include './google_login_config.php';
                       <div class="input-group auth-pass-inputgroup">
                         <input
                           type="password"
+                          id="password"
                           name="password"
                           class="form-control"
                           placeholder="Enter password"
                           aria-label="Password"
                           aria-describedby="password-addon"
+                          value=<?php echo $password; ?>
                         />
                         <button
                           class="btn shadow-none ms-0"
@@ -90,43 +86,19 @@ include './google_login_config.php';
                     </div>
                     <div class="row mb-29">
                       <div class="col">
-                        <p style="color: red"><?php echo $err; ?></p>
-                        <p style="color: red"><?php if(isset($_GET['err'])) echo $_GET['err']; ?></p>
+                        <p style="color: red" id="msg"></p>
                       </div>
                     </div>
                     <div class="mb-3">
                       <button
                         class="btn bg-primary color-white w-100 waves-effect waves-light fs-18 font-w500"
                         type="submit"
-                        name="login"
+                        name="change"
+                        onclick="changeLoginInfo()"
                       >
-                        Log In
+                        Change
                       </button>
                     </div>
-                  </form>
-
-                  <div class="mt-20 pt-2 text-center">
-                    <div class="signin-other-title">
-                      <a href="#" class="text-muted fs-14">Forgot password?</a>
-                    </div>
-                  </div>
-
-                  <div class="mt-37 text-center">
-                    <p class="text-muted mb-0 fs-14">
-                      Don't have an account ?
-                      <a
-                        href="user-register.php"
-                        class="text-primary fw-semibold"
-                      >
-                        Create Account
-                      </a>
-                    </p>
-                  </div>
-                  <div class="mt-37 text-center">
-                    
-                    <p class="text-muted mb-0 fs-14">
-                      <?php echo "<a href='".$client->createAuthUrl()."'>Google Login</a>"; ?>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -157,6 +129,19 @@ include './google_login_config.php';
 
     <!-- APP JS -->
 
-    <script></script>
+    <script>
+      function changeLoginInfo()
+      {
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "change_profile.php");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("username="+username+"&password="+password);
+        xhttp.onload = function() {
+          document.getElementById('msg').innerHTML = this.responseText;
+        }
+      }
+    </script>
   </body>
 </html>
